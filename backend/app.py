@@ -153,8 +153,15 @@ def register_routes():
         parsed = urlparse(handler.path)
         params = parse_qs(parsed.query)
         status = params.get("status", [None])[0]
-        tasks = list_user_tasks(user_id, status)
-        handler._send_json([t.to_dict() for t in tasks])
+        page = int(params.get("page", ["1"])[0])
+        limit = int(params.get("limit", ["20"])[0])
+        limit = min(limit, 100)
+        tasks = list_user_tasks(user_id, status, page=page, limit=limit)
+        handler._send_json({
+            "tasks": [t.to_dict() for t in tasks],
+            "page": page,
+            "limit": limit,
+        })
 
     @TaskAPIHandler.register_route("GET", r"/api/tasks/stats")
     def handle_task_stats(handler):
