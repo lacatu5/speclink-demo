@@ -24,6 +24,31 @@ def generate_token(user_id: int) -> str:
     return f"{payload}:{signature}"
 
 
+def verify_token(token: str) -> int | None:
+    """Validate token signature and expiry. Returns user_id or None."""
+    try:
+        parts = token.split(":")
+        if len(parts) != 4:
+            return None
+        user_id_str, timestamp, _, signature = parts[0], f"{parts[1]}:{parts[2]}", parts[3], parts[3]
+        # Re-extract properly
+        user_id_str = parts[0]
+        timestamp_str = parts[1]
+        provided_sig = parts[2]
+        payload = f"{user_id_str}:{timestamp_str}"
+        expected_sig = hmac.new(
+            SECRET_KEY.encode(), payload.encode(), hashlib.sha256
+        ).hexdigest()
+        if not hmac.compare_digest(provided_sig, expected_sig):
+            return None
+        issued_at = datetime.fromisoformat(timestamp_str)
+        if datetime.utcnow() - issued_at > timedelta(hours=TOKEN_EXPIRY_HOURS):
+            return None
+        return int(user_id_str)
+    except (ValueError, IndexError):
+        return None
+
+
 def create_user(username: str, email: str, password: str) -> User:
     conn = get_connection()
     password_hash = hash_password(password)

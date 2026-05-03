@@ -4,7 +4,7 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 
 from .config import HOST, PORT, DEBUG
 from .database import init_db
-from .services.auth import create_user, authenticate
+from .services.auth import create_user, authenticate, verify_token
 from .services.tasks import (
     create_task,
     get_task_by_id,
@@ -56,9 +56,9 @@ class TaskAPIHandler(BaseHTTPRequestHandler):
         if not token:
             self._send_json({"error": "Missing authorization token"}, 401)
             return None
-        user_id = extract_user_id(token)
+        user_id = verify_token(token)
         if not user_id:
-            self._send_json({"error": "Invalid token"}, 401)
+            self._send_json({"error": "Invalid or expired token"}, 401)
             return None
         return user_id
 
