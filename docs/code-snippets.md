@@ -55,30 +55,6 @@ def extract_user_id(token: str) -> int | None:
         return None
 ```
 
-## Status Transition Guard
-
-The `Task` model enforces a state machine. Only valid transitions are allowed:
-
-```python
-def can_transition_to(self, new_status: str) -> bool:
-    transitions = {
-        "pending": ("in_progress", "cancelled"),
-        "in_progress": ("completed", "cancelled"),
-        "completed": ("in_progress",),
-        "cancelled": ("pending",),
-    }
-    return new_status in transitions.get(self.status, ())
-```
-
-The `update_task_status` service function checks this before writing to the database:
-
-```python
-if not task.can_transition_to(new_status):
-    raise ValueError(
-        f"Cannot transition from {task.status} to {new_status}"
-    )
-```
-
 ## API Route Registration
 
 Routes are registered using decorators with regex patterns. Named groups become keyword arguments to the handler:
@@ -192,3 +168,27 @@ def _get_user_id(token: str) -> int:
 
 The `get_task_stats` function, which grouped tasks by status and filled in zero counts for statuses with no tasks, has been removed from the codebase.
 
+
+## Status Transition Guard
+
+The `Task` model enforces a state machine. Only valid transitions are allowed:
+
+```python
+def can_transition_to(self, new_status: str) -> bool:
+    transitions = {
+        "pending": ("in_progress", "cancelled"),
+        "in_progress": ("completed", "cancelled"),
+        "completed": ("in_progress",),
+        "cancelled": ("pending",),
+    }
+    return new_status in transitions.get(self.status, ())
+```
+
+The `update_task_status` service function checks this before writing to the database:
+
+```python
+if not task.can_transition_to(new_status):
+    raise ValueError(
+        f"Cannot transition from {task.status} to {new_status}"
+    )
+```
