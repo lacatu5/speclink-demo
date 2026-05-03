@@ -38,11 +38,27 @@ def list_user_tasks(user_id, status=None, page=1, limit=20):
     return [_row_to_dict(r) for r in rows]
 
 
+VALID_TRANSITIONS = {
+    "pending": {"in_progress", "cancelled"},
+    "in_progress": {"completed", "cancelled"},
+    "completed": set(),
+    "cancelled": set(),
+}
+
+
 def update_task_status(task_id, status):
     conn = get_connection()
     row = conn.execute("SELECT * FROM tasks WHERE id = ?", (task_id,)).fetchone()
     if not row:
+        conn.close()
         raise ValueError("Task not found")
+    current = row["status"]
+    if current == status:
+        conn.close()
+        raise ValueError(f"Task is already '{status}'")
+    if status not in VALID_TRANSITIONS.get(current, set()):
+        conn.close()
+        raise ValueError(f"Cannot transition from '{current}' to '{status}'")
     conn.execute(
         "UPDATE tasks SET status = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?",
         (status, task_id),
