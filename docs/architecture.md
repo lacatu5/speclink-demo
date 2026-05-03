@@ -72,7 +72,7 @@ SQLite via `sqlite3` with `row_factory = sqlite3.Row` for dict-like row access. 
 
 ### Services
 
-- **auth** (`services/auth.py`): PBKDF2-SHA256 password hashing with HMAC-based token generation. Token format: `{user_id}:{timestamp}:{hmac_signature}`.
+- **auth** (`services/auth.py`): Bcrypt password hashing with HMAC-based token generation. Token format: `{user_id}:{timestamp}:{signature}`.
 - **tasks** (`services/tasks.py`): CRUD operations with status transition validation. `get_task_stats()` returns counts grouped by status.
 
 ## Frontend
@@ -98,7 +98,8 @@ Wraps `fetch` with automatic JSON parsing, Bearer token injection from `localSto
 ## Authentication Flow
 
 1. Client calls `POST /api/auth/register` or `POST /api/auth/login`
-2. Server returns a token: `{user_id}:{timestamp}:{hmac_signature}`
+2. Server returns a token: `{user_id}:{timestamp}:{signature}`
 3. Client stores token in `localStorage` (web) or `.tasktoken` (CLI)
 4. Subsequent requests include `Authorization: Bearer <token>` header
-5. Server extracts user_id from token's first segment
+5. Server validates token using `verify_token` to check signature and expiry
+

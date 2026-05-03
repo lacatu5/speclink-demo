@@ -89,23 +89,27 @@ Priority must be `1` (Low), `2` (Medium), or `3` (High).
 
 ### GET /api/tasks
 
-List all tasks for the authenticated user. Optional `?status=pending` filter.
+List all tasks for the authenticated user. Optional `?status=pending`, `?page=1`, or `?limit=20` filters.
 
 **Response `200`:**
 
 ```json
-[
-  {
-    "id": 1,
-    "user_id": 1,
-    "title": "Fix bug",
-    "description": "Critical login bug",
-    "status": "pending",
-    "priority": 3,
-    "created_at": "2025-01-15T10:35:00",
-    "updated_at": null
-  }
-]
+{
+  "tasks": [
+    {
+      "id": 1,
+      "user_id": 1,
+      "title": "Fix bug",
+      "description": "Critical login bug",
+      "status": "pending",
+      "priority": 3,
+      "created_at": "2025-01-15T10:35:00",
+      "updated_at": null
+    }
+  ],
+  "page": 1,
+  "limit": 20
+}
 ```
 
 Tasks are ordered by priority descending, then created_at descending.

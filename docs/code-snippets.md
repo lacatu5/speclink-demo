@@ -4,31 +4,22 @@ This document walks through key code patterns used in the project.
 
 ## Password Hashing
 
-Passwords are hashed using PBKDF2-SHA256 with a random 16-byte salt. The salt and hash are stored together as a single string.
+Passwords are hashed using bcrypt with a work factor of 12 rounds.
 
 ```python
-import hashlib
-import secrets
+import bcrypt
 
 def hash_password(password: str) -> str:
-    salt = secrets.token_bytes(16)
-    hashed = hashlib.scrypt(
-        password.encode(), salt=salt, n=16384, r=8, p=1, dklen=32
-    )
-    return f"{salt.hex()}:{hashed.hex()}"
+    return bcrypt.hashpw(password.encode(), bcrypt.gensalt(rounds=12)).decode()
 ```
 
-Verification compares the stored hash against a fresh hash of the input using constant-time comparison to prevent timing attacks:
+Verification compares the provided password against the stored bcrypt hash:
 
 ```python
-import hmac
+import bcrypt
 
 def verify_password(password: str, password_hash: str) -> bool:
-    salt_hex, stored_hash = password_hash.split(":")
-    hashed = hashlib.scrypt(
-        password.encode(), salt=bytes.fromhex(salt_hex), n=16384, r=8, p=1, dklen=32
-    )
-    return hmac.compare_digest(hashed.hex(), stored_hash)
+    return bcrypt.checkpw(password.encode(), password_hash.encode())
 ```
 
 ## Token Generation
@@ -53,30 +44,6 @@ def extract_user_id(token: str) -> int | None:
         return int(parts[0])
     except (ValueError, IndexError):
         return None
-```
-
-## Status Transition Guard
-
-The `Task` model enforces a state machine. Only valid transitions are allowed:
-
-```python
-def can_transition_to(self, new_status: str) -> bool:
-    transitions = {
-        "pending": ("in_progress", "cancelled"),
-        "in_progress": ("completed", "cancelled"),
-        "completed": ("in_progress",),
-        "cancelled": ("pending",),
-    }
-    return new_status in transitions.get(self.status, ())
-```
-
-The `update_task_status` service function checks this before writing to the database:
-
-```python
-if not task.can_transition_to(new_status):
-    raise ValueError(
-        f"Cannot transition from {task.status} to {new_status}"
-    )
 ```
 
 ## API Route Registration
@@ -192,3 +159,27 @@ def _get_user_id(token: str) -> int:
 
 The `get_task_stats` function, which grouped tasks by status and filled in zero counts for statuses with no tasks, has been removed from the codebase.
 
+
+## Status Transition
+
+The `Task` model enforces a state machine. Only valid transitions are allowed:
+
+```python
+def can_transition_to(self, new_status: str) -> bool:
+    transitions = {
+        "pending": ("in_progress", "cancelled"),
+        "in_progress": ("completed", "cancelled"),
+        "completed": ("in_progress",),
+        "cancelled": ("pending",),
+    }
+    return new_status in transitions.get(self.status, ())
+```
+
+The `update_task_status` service function checks this before writing to the database:
+
+```python
+if not task.can_transition_to(new_status):
+    raise ValueError(
+        f"Cannot transition from {task.status} to {new_status}"
+    )
+```
