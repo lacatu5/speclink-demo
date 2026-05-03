@@ -1,6 +1,6 @@
 import hashlib
 import hmac
-import secrets
+import bcrypt
 from datetime import datetime, timedelta
 
 from ..config import SECRET_KEY, TOKEN_EXPIRY_HOURS
@@ -9,19 +9,11 @@ from ..models.user import User
 
 
 def hash_password(password: str) -> str:
-    salt = secrets.token_bytes(16)
-    hashed = hashlib.scrypt(
-        password.encode(), salt=salt, n=16384, r=8, p=1, dklen=32
-    )
-    return f"{salt.hex()}:{hashed.hex()}"
+    return bcrypt.hashpw(password.encode(), bcrypt.gensalt(rounds=12)).decode()
 
 
 def verify_password(password: str, password_hash: str) -> bool:
-    salt_hex, stored_hash = password_hash.split(":")
-    hashed = hashlib.scrypt(
-        password.encode(), salt=bytes.fromhex(salt_hex), n=16384, r=8, p=1, dklen=32
-    )
-    return hmac.compare_digest(hashed.hex(), stored_hash)
+    return bcrypt.checkpw(password.encode(), password_hash.encode())
 
 
 def generate_token(user_id: int) -> str:
