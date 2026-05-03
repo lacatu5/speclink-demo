@@ -4,31 +4,22 @@ This document walks through key code patterns used in the project.
 
 ## Password Hashing
 
-Passwords are hashed using PBKDF2-SHA256 with a random 16-byte salt. The salt and hash are stored together as a single string.
+Passwords are hashed using bcrypt with a work factor of 12 rounds.
 
 ```python
-import hashlib
-import secrets
+import bcrypt
 
 def hash_password(password: str) -> str:
-    salt = secrets.token_bytes(16)
-    hashed = hashlib.scrypt(
-        password.encode(), salt=salt, n=16384, r=8, p=1, dklen=32
-    )
-    return f"{salt.hex()}:{hashed.hex()}"
+    return bcrypt.hashpw(password.encode(), bcrypt.gensalt(rounds=12)).decode()
 ```
 
-Verification compares the stored hash against a fresh hash of the input using constant-time comparison to prevent timing attacks:
+Verification compares the provided password against the stored bcrypt hash:
 
 ```python
-import hmac
+import bcrypt
 
 def verify_password(password: str, password_hash: str) -> bool:
-    salt_hex, stored_hash = password_hash.split(":")
-    hashed = hashlib.scrypt(
-        password.encode(), salt=bytes.fromhex(salt_hex), n=16384, r=8, p=1, dklen=32
-    )
-    return hmac.compare_digest(hashed.hex(), stored_hash)
+    return bcrypt.checkpw(password.encode(), password_hash.encode())
 ```
 
 ## Token Generation

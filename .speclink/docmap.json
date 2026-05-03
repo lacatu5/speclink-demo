@@ -1,5 +1,5 @@
 {
-  "codebase_sha": "62e0ebfd04cf3460dddad84d390492f9dff56c80",
+  "codebase_sha": "dc2162c6c6dac38a4802fce67dd4d845ba05eab0",
   "mappings": [
     {
       "doc_file": "docs/api.md",
@@ -27,7 +27,7 @@
         },
         {
           "heading": "GET /api/tasks",
-          "hash": "8a00e75a7ea7299c62e6be1307cd4a36b5d3df369d3e70b32d695e6035757216",
+          "hash": "5e9a9381b69a43c1b376b7cb751f663e945bf3cf45fdcdde5ad7e58aedad8569",
           "files": [
             "backend/app.py"
           ]
@@ -97,7 +97,7 @@
         },
         {
           "heading": "Authentication Flow",
-          "hash": "2cf33cc603d7dcb0f43a41b08e3b5959838dadb4d951ddf97d509e7aeff1ce43",
+          "hash": "f52710af6fee2bbd3d1a49fb0bc3f05772f1f576628970d08844bc805a7e5753",
           "files": [
             "backend/app.py",
             "backend/main.py",
@@ -171,7 +171,7 @@
         },
         {
           "heading": "Services",
-          "hash": "d80f697a86b46bd7e10ee2bd97d1ca3192c94d64c35dc4c0b20f1c33c25f220e",
+          "hash": "bf73b275a43ec09113304a879346acc0dab4b3817b484859cdcdadb721217544",
           "files": [
             "backend/services/auth.py"
           ]
@@ -310,7 +310,7 @@
         },
         {
           "heading": "Password Hashing",
-          "hash": "b4ef175122cbbd180fae70957bdc60e163476ac2a2ddeab0ce282dd720984e6d",
+          "hash": "b5371e88b3b54d57abbc523cf7cea2f9c24f6c1ce4e0eb9ef1975d976ff2742a",
           "files": [
             "backend/services/auth.py"
           ]
@@ -323,9 +323,11 @@
           ]
         },
         {
-          "heading": "Status Transition Guard",
-          "hash": "2a0e78f2ca09ba636a678b801e513c29881773554b6794026457165638ab99c8",
-          "files": []
+          "heading": "Status Transition",
+          "hash": "2ffad1487f42ca40a48b30ba59957c47cdafcaab3620f18b3be7260b04a174e2",
+          "files": [
+            "backend/services/tasks.py"
+          ]
         },
         {
           "heading": "Task Statistics Aggregation",
