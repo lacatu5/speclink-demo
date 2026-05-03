@@ -1,0 +1,396 @@
+{
+  "codebase_sha": "9cfc4e89a2027004dbfcee83d295c1a7ccb87121",
+  "mappings": [
+    {
+      "doc_file": "docs/api.md",
+      "sections": [
+        {
+          "heading": "API Reference",
+          "hash": "3f596bdad3efe9513a7e50cc0a4ef0d9103bfa37f1f0b163ae9321ea2b4d235a",
+          "files": [
+            "backend/app.py"
+          ]
+        },
+        {
+          "heading": "Authentication",
+          "hash": "c81860c6996921c32c51fff4318f1b2749ed7bf71bf828a6a0f25308c0798668",
+          "files": [
+            "backend/app.py",
+            "backend/main.py",
+            "backend/services/auth.py"
+          ]
+        },
+        {
+          "heading": "DELETE /api/tasks/:id",
+          "hash": "1b67d2c36a9a38c847d87450ef10eeea542872c370eeed9fcc36612051125629",
+          "files": []
+        },
+        {
+          "heading": "GET /api/tasks",
+          "hash": "8a00e75a7ea7299c62e6be1307cd4a36b5d3df369d3e70b32d695e6035757216",
+          "files": [
+            "backend/app.py"
+          ]
+        },
+        {
+          "heading": "GET /api/tasks/stats",
+          "hash": "9eae8aef223116106181301783184bc4197e752b69ed1911d67146156cfeb907",
+          "files": [
+            "backend/app.py"
+          ]
+        },
+        {
+          "heading": "PATCH /api/tasks/:id/status",
+          "hash": "60b7b4528d413161e49c4397ae0e2abfe594719920550dc1c0d3c8e5742e8aac",
+          "files": [
+            "backend/app.py"
+          ]
+        },
+        {
+          "heading": "POST /api/auth/login",
+          "hash": "dabe7128e1eea8e8a341be354995302ea0196c67bbe5d5ed5c49576e17c36ed1",
+          "files": [
+            "backend/app.py",
+            "backend/services/auth.py"
+          ]
+        },
+        {
+          "heading": "POST /api/auth/register",
+          "hash": "5ea5cbe4245d6d746ffd28e4577a3eeb76663815d7030e5957c240cd15469e1d",
+          "files": [
+            "backend/app.py",
+            "backend/services/auth.py"
+          ]
+        },
+        {
+          "heading": "POST /api/tasks",
+          "hash": "9f060c99485136f9ed4e629181fda033410f2ac70289629a9c8e66492456cd09",
+          "files": [
+            "backend/app.py"
+          ]
+        },
+        {
+          "heading": "Tasks",
+          "hash": "167214a5c13c5cda864644d6ee3f55576d8b07c38d71d2d6b42d69134777418a",
+          "files": [
+            "backend/app.py",
+            "frontend/src/api/client.js",
+            "frontend/src/hooks/tasksHook.js"
+          ]
+        }
+      ]
+    },
+    {
+      "doc_file": "docs/architecture.md",
+      "sections": [
+        {
+          "heading": "API Client (`api/client.js`)",
+          "hash": "227c05c284f1b8170e33a898b970563fa8c15bae8aef2e3dab6887811f2b437c",
+          "files": [
+            "frontend/src/api/client.js"
+          ]
+        },
+        {
+          "heading": "Architecture",
+          "hash": "e8c5671c923012d0d6f0070b25cfc11ef29a6fc347f0655666a1b7039be5fe50",
+          "files": []
+        },
+        {
+          "heading": "Authentication Flow",
+          "hash": "2cf33cc603d7dcb0f43a41b08e3b5959838dadb4d951ddf97d509e7aeff1ce43",
+          "files": [
+            "backend/app.py",
+            "backend/main.py",
+            "backend/services/auth.py"
+          ]
+        },
+        {
+          "heading": "Backend",
+          "hash": "9b307dc240e087e71a523242b7fdcdcd986ed90bc067209a2135b5367ad5d7d6",
+          "files": [
+            "backend/app.py"
+          ]
+        },
+        {
+          "heading": "CLI (`cli.py`)",
+          "hash": "91ef0c5008c34668d92e5ca81bfa049552b55d7065fa21321fcfd8c195f8b3da",
+          "files": [
+            "backend/main.py"
+          ]
+        },
+        {
+          "heading": "Components",
+          "hash": "70a0cf344a441521046656cb82b54e77925c1529c39395c452cfcbe6e164bda6",
+          "files": [
+            "frontend/src/App.jsx",
+            "frontend/src/components/Dashboard.jsx",
+            "frontend/src/components/LoginForm.jsx",
+            "frontend/src/components/TaskList.jsx"
+          ]
+        },
+        {
+          "heading": "Database (`database.py`)",
+          "hash": "fc67e641df732998911e7b6e0b8fd484753dd307ec936c20a58a9dc9aa333bcd",
+          "files": [
+            "backend/database.py"
+          ]
+        },
+        {
+          "heading": "Frontend",
+          "hash": "88b620e2a4ce9f8447244958b5c607176b72214a09969e5b3be49a2be97efede",
+          "files": []
+        },
+        {
+          "heading": "HTTP Server (`app.py`)",
+          "hash": "7421e05338f462564d0d38b85976281e9fa383bbd8270e7dcd94cc8b5519a959",
+          "files": [
+            "backend/app.py"
+          ]
+        },
+        {
+          "heading": "Hooks",
+          "hash": "39acde76230aa6ed615a7596d85b0f41b7daaeaef0cf90538c53be0ff819c42e",
+          "files": [
+            "frontend/src/hooks/tasksHook.js",
+            "frontend/src/hooks/useAuth.js"
+          ]
+        },
+        {
+          "heading": "Models",
+          "hash": "90ba5f96dfa8c28a466691d92b91ecd099d1226158ff32d93491008eea798787",
+          "files": [
+            "backend/models/user.py"
+          ]
+        },
+        {
+          "heading": "Overview",
+          "hash": "5596506dce1489986fc2336e6824e86e960b55b54366c6aad5923ec49f98a520",
+          "files": [
+            "backend/app.py"
+          ]
+        },
+        {
+          "heading": "Services",
+          "hash": "d80f697a86b46bd7e10ee2bd97d1ca3192c94d64c35dc4c0b20f1c33c25f220e",
+          "files": [
+            "backend/services/auth.py"
+          ]
+        }
+      ]
+    },
+    {
+      "doc_file": "docs/cli.md",
+      "sections": [
+        {
+          "heading": "CLI Reference",
+          "hash": "30926647cf8b4cf10f59c9c5a25ae8e028349745182e1be483dae0e3fcebe8ed",
+          "files": [
+            "backend/main.py"
+          ]
+        },
+        {
+          "heading": "Commands",
+          "hash": "d798e05c1f7b13c85fc6d12e3e54c786299e56e6aee6951d67c6873792a3f1fd",
+          "files": []
+        },
+        {
+          "heading": "Examples",
+          "hash": "36c34e529faa613614e0f2fd38254af1c9cc4b0f44b2e00b66ae38a56fce0a02",
+          "files": [
+            "backend/main.py"
+          ]
+        },
+        {
+          "heading": "Task Subcommands",
+          "hash": "cb7701d47429054efa02c5f6612b47a10c960ff7a0eed88315c8a2d523a8ea5f",
+          "files": [
+            "backend/main.py"
+          ]
+        },
+        {
+          "heading": "Usage",
+          "hash": "30b8dea0e0462ae9dc1812af2bffd3bb72f3f203e3264107297127b71c9e4b70",
+          "files": []
+        },
+        {
+          "heading": "config",
+          "hash": "2af1d9c5204da34904736158776dfa61316343fc5c40cf0b43301c60f367604b",
+          "files": [
+            "backend/main.py"
+          ]
+        },
+        {
+          "heading": "init",
+          "hash": "b93fa5229264114fad6e3349aecd21b9493aa54ce09db519431b00b80ede861a",
+          "files": [
+            "backend/database.py",
+            "backend/main.py"
+          ]
+        },
+        {
+          "heading": "login",
+          "hash": "b5312bfdde04e2f21138b851d2c87107c515efa2e8e9994495bf1a514d59ab07",
+          "files": [
+            "backend/main.py"
+          ]
+        },
+        {
+          "heading": "register",
+          "hash": "68300ddbc104eed4f1227e170e88019f15f3e8bdd2b34575930832b10a077fe5",
+          "files": [
+            "backend/main.py"
+          ]
+        },
+        {
+          "heading": "task add",
+          "hash": "e54cdc63b8c9bd8487291581102f20d5319105ef035055675b0227152f8a5f74",
+          "files": [
+            "backend/main.py"
+          ]
+        },
+        {
+          "heading": "task delete",
+          "hash": "71870bcc0835a238b902bba39d4dc07d603f228e39a6a9948dc39b5d3efdf8a8",
+          "files": [
+            "backend/main.py"
+          ]
+        },
+        {
+          "heading": "task list",
+          "hash": "627fd7d882408bd19118c81f2d6e14f3c81ea91774b274d8176e3ad282b488c0",
+          "files": [
+            "backend/main.py"
+          ]
+        },
+        {
+          "heading": "task stats",
+          "hash": "8a10c23e6d96fdedb89b941f6299b2d15aa72f7ac7a8bf171599970ea9fdedb2",
+          "files": [
+            "backend/app.py",
+            "backend/main.py"
+          ]
+        },
+        {
+          "heading": "task status",
+          "hash": "11b7e92cdc39293426c0507843e193b49c1c94c83c2fc72c762d1679d82366c8",
+          "files": [
+            "backend/main.py"
+          ]
+        }
+      ]
+    },
+    {
+      "doc_file": "docs/code-snippets.md",
+      "sections": [
+        {
+          "heading": "API Client Error Handling",
+          "hash": "292a9006966271a4fb293f9257548d76279330cae0d4a94fcd916677f90d7678",
+          "files": [
+            "frontend/src/api/client.js"
+          ]
+        },
+        {
+          "heading": "API Route Registration",
+          "hash": "180b92f8aa0b6e311f42cb1ff7c2b060d47ac16a89faf9da1313d6be1cbe1a50",
+          "files": [
+            "backend/app.py"
+          ]
+        },
+        {
+          "heading": "CLI Token Storage",
+          "hash": "6889661b7462abeccf48ef86ddfffafa067a70e5970ff8271cbca0b5bb9bd818",
+          "files": [
+            "backend/main.py"
+          ]
+        },
+        {
+          "heading": "Code Snippets",
+          "hash": "850c450a163049f5cf5184bf1a41c0a729382b9df4b88fa3c3e1f8f1e28f1fb6",
+          "files": []
+        },
+        {
+          "heading": "Password Hashing",
+          "hash": "b4ef175122cbbd180fae70957bdc60e163476ac2a2ddeab0ce282dd720984e6d",
+          "files": [
+            "backend/services/auth.py"
+          ]
+        },
+        {
+          "heading": "React Task Hook",
+          "hash": "33d354564220b9f0d110623bbcc2e1744e0f7c5915183e4b80f46e28ec02c5c1",
+          "files": [
+            "frontend/src/hooks/tasksHook.js"
+          ]
+        },
+        {
+          "heading": "Status Transition Guard",
+          "hash": "2a0e78f2ca09ba636a678b801e513c29881773554b6794026457165638ab99c8",
+          "files": []
+        },
+        {
+          "heading": "Task Statistics Aggregation",
+          "hash": "31d61dc7a57fb259c38adbfb24c24609165c5b5b510411cc2aaa05ec0b3f97c9",
+          "files": []
+        },
+        {
+          "heading": "Token Generation",
+          "hash": "4c2a4ad675240629aa91351d497a3516f773f3c1e5cf64b6c0c9a887744bf868",
+          "files": [
+            "backend/services/auth.py"
+          ]
+        }
+      ]
+    },
+    {
+      "doc_file": "docs/getting-started.md",
+      "sections": [
+        {
+          "heading": "Backend Setup",
+          "hash": "4a839cba1885c21df0e66fac6c81e912c8c5e26921f9c686aa7114c5130fe127",
+          "files": [
+            "backend/app.py",
+            "backend/config.py",
+            "backend/database.py",
+            "backend/main.py"
+          ]
+        },
+        {
+          "heading": "CLI Usage",
+          "hash": "f3aa486e39f070adad5a6307c1456e4febc98db99fcec606a1dc8f19b86ff6eb",
+          "files": [
+            "backend/main.py"
+          ]
+        },
+        {
+          "heading": "Configuration",
+          "hash": "df8f7b30d697c655c445b242e1c22090831e9b6a6e26195da8c5a789c0099035",
+          "files": [
+            "backend/config.py"
+          ]
+        },
+        {
+          "heading": "Environment Variables",
+          "hash": "c92498a31a629b5cc5b9ea09ab4605f2d405039d63d0efc530b3198b37c24af1",
+          "files": [
+            "frontend/src/api/client.js"
+          ]
+        },
+        {
+          "heading": "Frontend Setup",
+          "hash": "9873f0b851afa7a773da5c70dcf00eed07f315933fbf8c24935728e8c6d1e3bf",
+          "files": []
+        },
+        {
+          "heading": "Getting Started",
+          "hash": "715dae5ce0d3bb39c25f1263950438127e17d3bbf96806bb5013dfdf2dc5fb26",
+          "files": []
+        },
+        {
+          "heading": "Prerequisites",
+          "hash": "445ec0c96e1a57bcf82d1ebc7ec9e2b56cb76ac40a1d9e6f2267ab67eb5d8af6",
+          "files": []
+        }
+      ]
+    }
+  ]
+}

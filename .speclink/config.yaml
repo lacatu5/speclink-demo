@@ -1,0 +1,18 @@
+docs:
+- docs/api.md
+- docs/architecture.md
+- docs/cli.md
+- docs/code-snippets.md
+- docs/getting-started.md
+drop_params: true
+max_concurrent: 50
+max_context_items: 30
+max_paragraph_length: 2000
+max_paragraph_tokens: 8000
+max_retries: 3
+max_signatures: 100
+max_variables: 30
+rerank_floor: 0.5
+rerank_gap: 0.15
+temperature: 0
+timeout: 60
