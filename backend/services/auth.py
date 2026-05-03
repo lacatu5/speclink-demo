@@ -1,6 +1,6 @@
 import hashlib
 import hmac
-import secrets
+import bcrypt
 from datetime import datetime, timedelta
 
 from ..config import SECRET_KEY, TOKEN_EXPIRY_HOURS
@@ -9,19 +9,11 @@ from ..models.user import User
 
 
 def hash_password(password: str) -> str:
-    salt = secrets.token_bytes(16)
-    hashed = hashlib.scrypt(
-        password.encode(), salt=salt, n=16384, r=8, p=1, dklen=32
-    )
-    return f"{salt.hex()}:{hashed.hex()}"
+    return bcrypt.hashpw(password.encode(), bcrypt.gensalt(rounds=12)).decode()
 
 
 def verify_password(password: str, password_hash: str) -> bool:
-    salt_hex, stored_hash = password_hash.split(":")
-    hashed = hashlib.scrypt(
-        password.encode(), salt=bytes.fromhex(salt_hex), n=16384, r=8, p=1, dklen=32
-    )
-    return hmac.compare_digest(hashed.hex(), stored_hash)
+    return bcrypt.checkpw(password.encode(), password_hash.encode())
 
 
 def generate_token(user_id: int) -> str:
@@ -30,6 +22,31 @@ def generate_token(user_id: int) -> str:
         SECRET_KEY.encode(), payload.encode(), hashlib.sha256
     ).hexdigest()
     return f"{payload}:{signature}"
+
+
+def verify_token(token: str) -> int | None:
+    """Validate token signature and expiry. Returns user_id or None."""
+    try:
+        parts = token.split(":")
+        if len(parts) != 4:
+            return None
+        user_id_str, timestamp, _, signature = parts[0], f"{parts[1]}:{parts[2]}", parts[3], parts[3]
+        # Re-extract properly
+        user_id_str = parts[0]
+        timestamp_str = parts[1]
+        provided_sig = parts[2]
+        payload = f"{user_id_str}:{timestamp_str}"
+        expected_sig = hmac.new(
+            SECRET_KEY.encode(), payload.encode(), hashlib.sha256
+        ).hexdigest()
+        if not hmac.compare_digest(provided_sig, expected_sig):
+            return None
+        issued_at = datetime.fromisoformat(timestamp_str)
+        if datetime.utcnow() - issued_at > timedelta(hours=TOKEN_EXPIRY_HOURS):
+            return None
+        return int(user_id_str)
+    except (ValueError, IndexError):
+        return None
 
 
 def create_user(username: str, email: str, password: str) -> User:
