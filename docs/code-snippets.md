@@ -169,7 +169,7 @@ def _get_user_id(token: str) -> int:
 The `get_task_stats` function, which grouped tasks by status and filled in zero counts for statuses with no tasks, has been removed from the codebase.
 
 
-## Status Transition Guard
+## Status Transition
 
 The `Task` model enforces a state machine. Only valid transitions are allowed:
 
